@@ -10,9 +10,8 @@ export default function Images() {
       .then((res) => res.json())
       .then((data) => {
         setImages(data.images);
-        console.log(data);
       });
-  }, [...images]);
+  }, [images]);
 
   //   const image = images.map((name, index) => (
   //     <Picture imageName={name} index={index} />
