@@ -1,5 +1,5 @@
 {
-  "images": ["img1.jpg ", "img2.jpg ", "img3.jpg ", "img4.jpg ", "img5.jpg "],
+  "images": ["img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg"],
   "user": {
     "firstName": "Zayd",
     "token": "uryc45efez14564cds65csdc54644878cdscd4564213cdsc",

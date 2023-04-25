@@ -1,9 +1,9 @@
-import Image from "../Pictures";
+import Images from "../Pictures";
 
 export default function Body() {
   return (
-    <div>
-      <Image />
+    <div className="flex justify-between">
+      <Images />
     </div>
   );
 }
