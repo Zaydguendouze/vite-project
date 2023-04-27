@@ -1,14 +1,16 @@
 export default function Picture({ imageName, index }) {
   return (
-    <div className="mt-10 mb-10 mr-10">
-      <img
-        className="h-auto max-h-40 max-w-50 mx-auto mb-2"
-        alt={imageName}
-        src={`images/${imageName}`}
-      ></img>
-      <div className="flex justify-center text-xl text-black font-bold">
+    <a href="#" className="group">
+      <div className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+        <img
+          className="w-full h-full group-hover:opacity-75"
+          alt={imageName}
+          src={`images/${imageName}`}
+        ></img>
+      </div>
+      <div className="flex justify-center text-xl text-black font-bold mt-2">
         {imageName}
       </div>
-    </div>
+    </a>
   );
 }

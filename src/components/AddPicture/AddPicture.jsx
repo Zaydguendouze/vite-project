@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function AddPicture({ images }) {
+export default function AddPicture({ images, setImages }) {
   // console.log(images);
   const [isAutocomplete, setIsAutocomplete] = useState(false);
   const [inputText, setInputText] = useState("");
@@ -16,6 +16,7 @@ export default function AddPicture({ images }) {
     setAutocompleteList((prev) => {
       let isMatch = false;
       let newAutocompleteList = [...prev];
+      console.log(autocompleteList);
       autocompleteList.forEach((element) => {
         if (element && element.trim() === incomingTextInput) {
           console.log("element", element);
@@ -34,9 +35,9 @@ export default function AddPicture({ images }) {
   };
 
   const handleClick = (e) => {
-    setLImages((prev) => {
+    setImages((prev) => {
       const inputTextTrimed = inputText.trim().toLowerCase();
-      const newLocalImages = [...lImages, inputTextTrimed];
+      const newLocalImages = [...images, inputTextTrimed];
       const isInputTextIncluded = images
         .map((img) => img.trim().toLowerCase())
         .includes(inputTextTrimed);
@@ -46,11 +47,25 @@ export default function AddPicture({ images }) {
     });
   };
 
+  const handleListClick = (e) => {
+    const selectedImg = e.target.textContent;
+    setLImages((prev) => [...prev, selectedImg]);
+    setImages((prev) => [...prev, selectedImg]);
+    setInputText("");
+    setIsAutocomplete(false);
+  };
+
   useEffect(() => {
     if (inputText.length > 0) {
-      setIsAutocomplete(true);
-    } else setIsAutocomplete(false);
-  }, [inputText]);
+      const filteredList = images.filter((img) =>
+        img.toLowerCase().includes(inputText.toLowerCase())
+      );
+      setAutocompleteList(filteredList);
+      setIsAutocomplete(filteredList.length > 0);
+    } else {
+      setIsAutocomplete(false);
+    }
+  }, [inputText, images]);
 
   return (
     <div>
@@ -63,15 +78,20 @@ export default function AddPicture({ images }) {
       <div>
         <input
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
-        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 
+        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-5"
           onChange={handleInputChange}
+          placeholder=" Choisissez une image dans la liste"
         />
-        <div className="">
+        <div className="mt-2">
           {isAutocomplete && (
-            <ul className="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+            <ul className="w-60 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
               {autocompleteList.map((element, idx) => (
-                <li className="flex items-center" key={idx}>
+                <li
+                  className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600 cursor-pointer"
+                  key={idx}
+                  onClick={handleListClick}
+                >
                   {element}
                 </li>
               ))}

@@ -15,9 +15,11 @@ function App() {
       });
   }, []);
   return (
-    <div className="App">
+    <div className="flex flex-col h-screen">
       <Navbar usr={user} />
-      <Body />
+      <div className="flex-grow mb-20">
+        <Body />
+      </div>
       <Footer />
     </div>
   );
