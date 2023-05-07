@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function AddPicture({ images, setImages }) {
+export default function AddPicture({ lImages, images, setLImages }) {
   // console.log(images);
   const [isAutocomplete, setIsAutocomplete] = useState(false);
   const [inputText, setInputText] = useState("");
 
-  const [lImages, setLImages] = useState(["img1.jpg"]);
+  // const [lImages, setLImages] = useState(["img1.jpg"]);
   const [autocompleteList, setAutocompleteList] = useState(
     images.filter((img) => !lImages.includes(img))
   );
@@ -35,7 +35,7 @@ export default function AddPicture({ images, setImages }) {
   };
 
   const handleClick = (e) => {
-    setImages((prev) => {
+    setLImages((prev) => {
       const inputTextTrimed = inputText.trim().toLowerCase();
       const newLocalImages = [...images, inputTextTrimed];
       const isInputTextIncluded = images
@@ -50,22 +50,15 @@ export default function AddPicture({ images, setImages }) {
   const handleListClick = (e) => {
     const selectedImg = e.target.textContent;
     setLImages((prev) => [...prev, selectedImg]);
-    setImages((prev) => [...prev, selectedImg]);
     setInputText("");
     setIsAutocomplete(false);
   };
 
   useEffect(() => {
     if (inputText.length > 0) {
-      const filteredList = images.filter((img) =>
-        img.toLowerCase().includes(inputText.toLowerCase())
-      );
-      setAutocompleteList(filteredList);
-      setIsAutocomplete(filteredList.length > 0);
-    } else {
-      setIsAutocomplete(false);
-    }
-  }, [inputText, images]);
+      setIsAutocomplete(true);
+    } else setIsAutocomplete(false);
+  }, [inputText]);
 
   return (
     <div>
